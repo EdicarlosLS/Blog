@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PostagemController {
@@ -19,9 +20,19 @@ public class PostagemController {
 		return "form_postagem";
 	}
 
-	@RequestMapping(value = "/novapostagem", method     = RequestMethod.POST)
+	@RequestMapping(value = "/novapostagem", method = RequestMethod.POST)
         public String form(Postagem postagem) {
 		repository.save(postagem);
-                return "form_postagem";                        }
+         
+		return "form_postagem";
+	}
+
+	@RequestMapping("/postagens")
+	public ModelAndView listaPostagens() {
+		ModelAndView mv = new ModelAndView("index");
+		Iterable<Postagem> postagens = repository.findAll();
+		mv.addObject("postagens", postagens);
+		return mv;
+	}
 }
 
