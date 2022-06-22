@@ -4,16 +4,31 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
 		<title></title>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 	</head>
 	<body>
+		<div th:replace="fragments::header"></div>
+		<main class="container">
 		<form method="post">
-			<label for="titulo">Título</label><br>
-			<input type="text" name="titulo" value="" id="titulo"><br>
+			<div class="input-field">
+				<label for="titulo">Título</label>
+				<input type="text" name="titulo" value="" id="titulo">
+			</div>
 
-			<label for="conteudo">Conteúdo</label><br>
-			<input type="text" name="conteudo" value="" id="conteudo"><br>
+			<div class="input-field">
+				<label for="conteudo">Conteúdo</label>
+				<textarea name="conteudo" value="" id="conteudo" class="materialize-textarea"></textarea>
+			</div>
 
-			<button type="submit">Postar</button>
+			<button type="submit" class="btn waves-effect waves-light" >Postar</button>
 		</form>
+		</main>
+		<div th:replace="fragments::footer"></div>
+	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script th:src="@{/js/main.js}"></script>
+	
 	</body>
 </html>
