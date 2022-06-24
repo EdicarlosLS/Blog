@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
@@ -10,25 +11,26 @@
 	</head>
 	<body>
 		<div th:replace="fragments::header"></div>
+		
 		<main class="container">
-		<form method="post" action="/postagens">
-			<div class="input-field">
-				<label for="titulo">Título</label>
-				<input type="text" name="titulo" value="" id="titulo">
+			<div class="row">
+				<div class="col s12">
+					<h1 th:text="${postagem.titulo}"></h1>
+					<span><b>Autor:</b></span><br>
+					<span>Postado em:</span>
+				</div>
+				<div class="col s12">
+					<img th:src="@{/img/mine.jpeg}" style="width:100%;"/>
+				</div>
+				<div class="col s12">
+					<p th:text="${postagem.conteudo}"></p>
+				</div>
 			</div>
-
-			<div class="input-field">
-				<label for="conteudo">Conteúdo</label>
-				<textarea name="conteudo" value="" id="conteudo" class="materialize-textarea"></textarea>
-			</div>
-
-			<button type="submit" class="btn waves-effect waves-light" >Postar</button>
-		</form>
 		</main>
+		
 		<div th:replace="fragments::footer"></div>
 	
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script th:src="@{/js/main.js}"></script>
-	
 	</body>
 </html>
