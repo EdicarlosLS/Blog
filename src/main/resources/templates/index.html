@@ -20,11 +20,10 @@
 							<span th:text="${postagem.titulo}" class="card-title"></span>
 						</div>
 						<div class="card-content">
-							<p th:text="${postagem.conteudo}">
-							</p>
+							<p th:text="${postagem.conteudo}" class="truncate"></p>
 						</div>
 						<div class="card-action"> 
-							<a href="#">This is a link</a> 
+							<a th:href="@{/postagens/{id}(id=${postagem.id})}">Continuar lendo</a> 
 						</div>
 					</div>
 				</div>

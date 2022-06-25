@@ -11,15 +11,15 @@
 	<body>
 		<div th:replace="fragments::header"></div>
 		<main class="container">
-		<form method="post" action="/postagens">
+			<form th:method="${postagem} == null ? 'post' : 'put'" th:action="${postagem} == null ? '/postagens' : '/postagens/'+${postagem.id}">
 			<div class="input-field">
 				<label for="titulo">Título</label>
-				<input type="text" name="titulo" value="" id="titulo">
+				<input type="text" name="titulo" th:value="${postagem?.titulo}" id="titulo">
 			</div>
 
 			<div class="input-field">
 				<label for="conteudo">Conteúdo</label>
-				<textarea name="conteudo" value="" id="conteudo" class="materialize-textarea"></textarea>
+				<textarea name="conteudo" id="conteudo" class="materialize-textarea" th:text="${postagem?.conteudo}"></textarea>
 			</div>
 
 			<button type="submit" class="btn waves-effect waves-light" >Postar</button>

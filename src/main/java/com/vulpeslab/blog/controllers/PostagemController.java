@@ -32,7 +32,7 @@ public class PostagemController {
 	@RequestMapping(value = "/postagens", method = RequestMethod.POST)
         public String salvar(Postagem postagem) {
 		repository.save(postagem);         
-		return "redirect:/postagens/nova";
+		return "redirect:/postagens";
 	}
 
 	@RequestMapping(value = "/postagens/{id}")
@@ -40,8 +40,21 @@ public class PostagemController {
 		ModelAndView mv = new ModelAndView("postagem");
 		Postagem p = repository.findById(id);
 		mv.addObject("postagem", p);
-		mv.addObject("id", id);
 		return mv;
+	}
+
+	@RequestMapping(value = "/postagens/{id}/editar", method = RequestMethod.GET)
+	public ModelAndView editar(@PathVariable long id){
+		ModelAndView mv = new ModelAndView("form_postagem");
+		Postagem p = repository.findById(id);
+		mv.addObject("postagem", p);
+		return mv;
+	}
+
+	@RequestMapping(value = "/postagens/{id}", method = RequestMethod.PUT)
+	public String atualizar(Postagem postagem){
+		repository.save(postagem);
+		return "redirect:/postagens";
 	}
 }
 
