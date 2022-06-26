@@ -26,6 +26,10 @@
 					<p th:text="${postagem.conteudo}"></p>
 				</div>
 			</div>
+			<form th:action="${'/postagens/'+{postagem.id}}" th:method="DELETE">
+				<a th:href="@{/postagens/{id}/editar(id=${postagem.id})}" class="btn orange" >Editar</a>	
+				<button type="submit" class="btn red" >Apagar</button>	
+			</form>
 		</main>
 		
 		<div th:replace="fragments::footer"></div>

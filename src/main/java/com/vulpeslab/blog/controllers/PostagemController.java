@@ -56,5 +56,14 @@ public class PostagemController {
 		repository.save(postagem);
 		return "redirect:/postagens";
 	}
+
+	@RequestMapping(value = "/postagens/{id}", method = RequestMethod.DELETE)
+	public String apagar(@PathVariable long id){
+		repository.deleteById(id);
+		return "redirect:/postagens";
+	}
+
+
+	
 }
 
