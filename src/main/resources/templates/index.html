@@ -7,7 +7,6 @@
 		<title></title>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-		<link rel="stylesheet" th:href="@{/css/style.css}">
 	</head>
 	<body>
 		<div th:replace="fragments::header"></div>
@@ -20,16 +19,17 @@
 							<span th:text="${postagem.titulo}" class="card-title"></span>
 						</div>
 						<div class="card-content">
-							<p th:text="${postagem.conteudo}" class="truncate"></p>
+							<p th:text="${postagem.conteudo}">
+							</p>
 						</div>
 						<div class="card-action"> 
-							<a th:href="@{/postagens/{id}(id=${postagem.id})}">Continuar lendo</a> 
+							<a href="#">This is a link</a> 
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="fixed-action-btn">
-				<a class="btn-floating btn-large waves-effect waves-light red"> 
+				<a href="/postagens/nova" class="btn-floating btn-large waves-effect waves-light red"> 
 					<i class="material-icons">add</i>
 				</a> 
 			</div>
