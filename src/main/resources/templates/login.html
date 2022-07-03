@@ -7,32 +7,35 @@
 		<title></title>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link rel="stylesheet" th:href="@{/css/style.css}">
 	</head>
 	<body>
 		<div th:replace="fragments::header"></div>
 		<main class="container">
-			<div th:each="postagem : ${postagens}" class="row">
-				<div class="col s12 m7">
-					<div class="card">
-						<div class="card-image">
-							<img th:src="@{/img/mine.jpeg}">
-							<span th:text="${postagem.titulo}" class="card-title"></span>
-						</div>
-						<div class="card-content">
-							<p th:text="${postagem.conteudo}">
-							</p>
-						</div>
-						<div class="card-action"> 
-							<a th:href="@{'/postagens/'+${postagem.id}}">Continuar lendo</a> 
+			<form action="/usuarios/login" method="post" class="row">
+				<div class="col s12">
+					<div class="row"> 
+						<div class="col s8 input-field offset-s2">
+							<label for="email">Email</label>
+							<input type="email" name="email" id="email">
 						</div>
 					</div>
+
+					<div class="row"> 
+						<div class="col s8 input-field offset-s2">
+							<label for="senha">Senha</label>
+							<input type="password" name="senha" id="senha">
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s4 offset-s4">
+							<button type="submit" class="btn">Entrar</button>
+						</div>
+						
+					</div>
 				</div>
-			</div>
-			<div th:if="${usuario != null}"class="fixed-action-btn">
-				<a href="/postagens/nova" class="btn-floating btn-large waves-effect waves-light red"> 
-					<i class="material-icons">add</i>
-				</a> 
-			</div>
+			</form>
 		</main>
 		
 <div th:replace="fragments::footer">

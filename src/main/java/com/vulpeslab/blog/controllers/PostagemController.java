@@ -1,5 +1,7 @@
 package com.vulpeslab.blog.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import com.vulpeslab.blog.models.Postagem;
 import com.vulpeslab.blog.repositories.PostagemRepository;
 
@@ -17,15 +19,19 @@ public class PostagemController {
 	private PostagemRepository repository;
 	
 	@RequestMapping(value = "/postagens", method = RequestMethod.GET)
-	public ModelAndView lista() {
+	public ModelAndView lista(HttpSession session) {
 		ModelAndView mv = new ModelAndView("index");
 		Iterable<Postagem> postagens = repository.findAll();
 		mv.addObject("postagens", postagens);
+		mv.addObject("usuario", session.getAttribute("usuario"));
 		return mv;
 	}
 
 	@RequestMapping(value = "/postagens/nova", method = RequestMethod.GET)
-	public String nova() {
+	public String nova(HttpSession session) {
+		if(session.getAttribute("usuario") == null){
+			return "redirect:/postagens";
+		}
 		return "form_postagem";
 	}
 
@@ -58,12 +64,9 @@ public class PostagemController {
 	}
 
 	@RequestMapping(value = "/postagens/{id}", method = RequestMethod.DELETE)
-	public String apagar(@PathVariable long id){
-		repository.deleteById(id);
+	public String apagar(Postagem postagem) {
+		repository.delete(postagem);
 		return "redirect:/postagens";
 	}
-
-
-	
 }
 
