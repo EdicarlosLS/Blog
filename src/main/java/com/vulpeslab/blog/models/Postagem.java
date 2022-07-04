@@ -1,9 +1,12 @@
 package com.vulpeslab.blog.models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Postagem {
@@ -16,6 +19,11 @@ public class Postagem {
 
 	private String titulo;
 	private String conteudo;
+	private Date dataPostagem;
+	private Date dataAtualizacao;
+
+	@ManyToOne
+	private Usuario usuario;
 
 
 	public long getId() {
@@ -40,6 +48,34 @@ public class Postagem {
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
+	}
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Date getDataPostagem() {
+		return dataPostagem;
+	}
+
+	public void setDataPostagem(Date dataPostagem) {
+		this.dataPostagem = dataPostagem;
+	}
+
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
 	}
 }
 

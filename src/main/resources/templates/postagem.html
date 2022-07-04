@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-	xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
@@ -11,13 +11,14 @@
 	</head>
 	<body>
 		<div th:replace="fragments::header"></div>
-		
+
 		<main class="container">
 			<div class="row">
 				<div class="col s12">
 					<h1 th:text="${postagem.titulo}"></h1>
-					<span><b>Autor:</b></span><br>
-					<span>Postado em:</span>
+					<span><b>Autor:</b> <p th:text="${postagem.usuario.nome}"></p></span><br>
+					<span>Postado em: <p th:text="${postagem.dataPostagem}"></p></span>
+					<span>Atualizado em: <p th:text="${postagem.dataAtualizacao}"></p></span>
 				</div>
 				<div class="col s12">
 					<img th:src="@{/img/mine.jpeg}" style="width:100%;"/>
@@ -26,14 +27,14 @@
 					<p th:text="${postagem.conteudo}"></p>
 				</div>
 			</div>
-			<form th:action="${'/postagens/'+{postagem.id}}" th:method="DELETE">
+			<form th:if="${session.usuario != null AND session.usuario.id == postagem.usuario.id}" th:action="${'/postagens/'+{postagem.id}}" th:method="DELETE">
 				<a th:href="@{/postagens/{id}/editar(id=${postagem.id})}" class="btn orange" >Editar</a>	
 				<button type="submit" class="btn red" >Apagar</button>	
 			</form>
 		</main>
-		
+
 		<div th:replace="fragments::footer"></div>
-	
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script th:src="@{/js/main.js}"></script>
 	</body>

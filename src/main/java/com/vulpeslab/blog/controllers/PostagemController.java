@@ -1,8 +1,11 @@
 package com.vulpeslab.blog.controllers;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import com.vulpeslab.blog.models.Postagem;
+import com.vulpeslab.blog.models.Usuario;
 import com.vulpeslab.blog.repositories.PostagemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,10 @@ public class PostagemController {
 	}
 
 	@RequestMapping(value = "/postagens", method = RequestMethod.POST)
-        public String salvar(Postagem postagem) {
+        public String salvar(Postagem postagem, HttpSession session) {
+		postagem.setUsuario((Usuario) session.getAttribute("usuario"));
+		postagem.setDataPostagem(new Date());
+		postagem.setDataAtualizacao(new Date());
 		repository.save(postagem);         
 		return "redirect:/postagens";
 	}
