@@ -65,6 +65,7 @@ public class PostagemController {
 
 	@RequestMapping(value = "/postagens/{id}", method = RequestMethod.PUT)
 	public String atualizar(Postagem postagem){
+		postagem.setDataAtualizacao(new Date());
 		repository.save(postagem);
 		return "redirect:/postagens";
 	}

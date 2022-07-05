@@ -17,8 +17,8 @@
 				<div class="col s12">
 					<h1 th:text="${postagem.titulo}"></h1>
 					<span><b>Autor:</b> <p th:text="${postagem.usuario.nome}"></p></span><br>
-					<span>Postado em: <p th:text="${postagem.dataPostagem}"></p></span>
-					<span>Atualizado em: <p th:text="${postagem.dataAtualizacao}"></p></span>
+					<span>Postado em: <p th:text="${#dates.format(postagem.dataPostagem, 'dd MMM YYYY')}"></p></span>
+					<span>Atualizado em: <p th:text="${#dates.format(postagem.dataAtualizacao, 'dd MMM YYYY')}"></p></span>
 				</div>
 				<div class="col s12">
 					<img th:src="@{/img/mine.jpeg}" style="width:100%;"/>
