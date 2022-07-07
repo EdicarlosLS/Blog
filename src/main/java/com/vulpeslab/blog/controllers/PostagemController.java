@@ -4,8 +4,10 @@ import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
+import com.vulpeslab.blog.models.Comentario;
 import com.vulpeslab.blog.models.Postagem;
 import com.vulpeslab.blog.models.Usuario;
+import com.vulpeslab.blog.repositories.ComentarioRepository;
 import com.vulpeslab.blog.repositories.PostagemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class PostagemController {
 
 	@Autowired
 	private PostagemRepository repository;
+
+	@Autowired
+	private ComentarioRepository comentarioRepo;
 	
 	@RequestMapping(value = "/postagens", method = RequestMethod.GET)
 	public ModelAndView lista(HttpSession session) {
@@ -52,6 +57,8 @@ public class PostagemController {
 		ModelAndView mv = new ModelAndView("postagem");
 		Postagem p = repository.findById(id);
 		mv.addObject("postagem", p);
+		Iterable<Comentario> comentarios = comentarioRepo.findByPostagem(p);
+		mv.addObject("comentarios", comentarios);
 		return mv;
 	}
 
@@ -74,6 +81,16 @@ public class PostagemController {
 	public String apagar(Postagem postagem) {
 		repository.delete(postagem);
 		return "redirect:/postagens";
+	}
+
+	@RequestMapping(value = "/postagens/{id}/comentar", method = RequestMethod.POST)
+	public String comentar(@PathVariable long id, Comentario comentario, HttpSession session){
+		Postagem p = repository.findById(id);
+		comentario.setPostagem(p);
+		comentario.setUsuario((Usuario)session.getAttribute("usuario"));
+		comentario.setDataPublicacao(new Date());
+		comentarioRepo.save(comentario);
+		return "redirect:/postagens/"+id;
 	}
 }
 

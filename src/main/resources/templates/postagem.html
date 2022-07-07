@@ -31,6 +31,24 @@
 				<a th:href="@{/postagens/{id}/editar(id=${postagem.id})}" class="btn orange" >Editar</a>	
 				<button type="submit" class="btn red" >Apagar</button>	
 			</form>
+
+			<section class="row">
+				<h6 class="col s12">Comentários</h6>
+				<div th:if="${session.usuario != null}" class="col s12">
+					<form th:action="@{/postagens/{id}/comentar(id=${postagem.id})}" method="post">
+						<div class="input-field">
+
+							<label for="comentario">Deixe seu comentário</label>
+							<input type="text" name="conteudo" id="comentario">
+						</div>
+						<button type="submit" class="btn">comentar</button>
+					</form>
+				</div>
+				<div th:if="${comentarios != null}" th:each="comentario : ${comentarios}" class="row">
+					<span th:text="${comentario.usuario.nome} + ' - ' + ${#dates.format(comentario.dataPublicacao, 'dd MMM YYYY')}"></span>
+					<span th:text="${comentario.conteudo}"></span>
+				</div>
+			</section>
 		</main>
 
 		<div th:replace="fragments::footer"></div>

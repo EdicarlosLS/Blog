@@ -1,12 +1,14 @@
 package com.vulpeslab.blog.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Postagem {
@@ -21,6 +23,9 @@ public class Postagem {
 	private String conteudo;
 	private Date dataPostagem;
 	private Date dataAtualizacao;
+
+	@OneToMany
+	private List<Comentario> comentarios; 
 
 	@ManyToOne
 	private Usuario usuario;
@@ -76,6 +81,14 @@ public class Postagem {
 
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
 	}
 }
 
