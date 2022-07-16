@@ -23,8 +23,9 @@ public class Postagem {
 	private String conteudo;
 	private Date dataPostagem;
 	private Date dataAtualizacao;
+	private String banner;
 
-	@OneToMany
+	@OneToMany(mappedBy = "postagem")
 	private List<Comentario> comentarios; 
 
 	@ManyToOne
@@ -89,6 +90,14 @@ public class Postagem {
 
 	public List<Comentario> getComentarios() {
 		return comentarios;
+	}
+
+	public void setBanner(String banner) {
+		this.banner = banner;
+	}
+
+	public String getBanner() {
+		return banner;
 	}
 }
 

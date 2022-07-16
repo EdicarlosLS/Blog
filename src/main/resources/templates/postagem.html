@@ -21,7 +21,7 @@
 					<span>Atualizado em: <p th:text="${#dates.format(postagem.dataAtualizacao, 'dd MMM YYYY')}"></p></span>
 				</div>
 				<div class="col s12">
-					<img th:src="@{/img/mine.jpeg}" style="width:100%;"/>
+					<img th:src="${'/img/'+postagem.banner}" style="width:100%;"/>
 				</div>
 				<div class="col s12">
 					<p th:text="${postagem.conteudo}"></p>

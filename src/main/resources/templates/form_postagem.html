@@ -11,24 +11,34 @@
 	<body>
 		<div th:replace="fragments::header"></div>
 		<main class="container">
-			<form th:method="${postagem} == null ? 'post' : 'put'" th:action="${postagem} == null ? '/postagens' : '/postagens/'+${postagem.id}">
-			<div class="input-field">
-				<label for="titulo">Título</label>
-				<input type="text" name="titulo" th:value="${postagem?.titulo}" id="titulo">
-			</div>
+			<form enctype="multipart/form-data" th:method="${postagem} == null ? 'post' : 'put'" th:action="${postagem} == null ? '/postagens' : '/postagens/'+${postagem.id}">
+				<div class="input-field">
+					<label for="titulo">Título</label>
+					<input type="text" name="titulo" th:value="${postagem?.titulo}" id="titulo">
+				</div>
 
-			<div class="input-field">
-				<label for="conteudo">Conteúdo</label>
-				<textarea name="conteudo" id="conteudo" class="materialize-textarea" th:text="${postagem?.conteudo}"></textarea>
-			</div>
+				<div class="input-field">
+					<label for="conteudo">Conteúdo</label>
+					<textarea name="conteudo" id="conteudo" class="materialize-textarea" th:text="${postagem?.conteudo}"></textarea>
+				</div>
 
-			<button type="submit" class="btn waves-effect waves-light" >Postar</button>
-		</form>
+				<div class="file-field input-field">
+					<div class="btn">
+						<span>Selecione</span>			
+						<input type="file" name="filebanner">
+					</div>
+					<div class="file-path-wrapper">
+						<input class="file-path" type="text">
+					</div>
+				</div>
+
+				<button type="submit" class="btn waves-effect waves-light" >Postar</button>
+			</form>
 		</main>
 		<div th:replace="fragments::footer"></div>
-	
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script th:src="@{/js/main.js}"></script>
-	
+
 	</body>
 </html>

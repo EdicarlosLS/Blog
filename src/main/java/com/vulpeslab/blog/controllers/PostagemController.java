@@ -1,5 +1,9 @@
 package com.vulpeslab.blog.controllers;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -11,10 +15,13 @@ import com.vulpeslab.blog.repositories.ComentarioRepository;
 import com.vulpeslab.blog.repositories.PostagemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,7 +32,7 @@ public class PostagemController {
 
 	@Autowired
 	private ComentarioRepository comentarioRepo;
-	
+
 	@RequestMapping(value = "/postagens", method = RequestMethod.GET)
 	public ModelAndView lista(HttpSession session) {
 		ModelAndView mv = new ModelAndView("index");
@@ -44,10 +51,30 @@ public class PostagemController {
 	}
 
 	@RequestMapping(value = "/postagens", method = RequestMethod.POST)
-        public String salvar(Postagem postagem, HttpSession session) {
+	public String salvar(Postagem postagem, HttpSession session, @Param("filebanner") MultipartFile filebanner) {
 		postagem.setUsuario((Usuario) session.getAttribute("usuario"));
 		postagem.setDataPostagem(new Date());
 		postagem.setDataAtualizacao(new Date());
+
+		if (filebanner.isEmpty()) {
+			postagem.setBanner("mine.jpeg");
+		} else {
+			String UPLOAD_DIR = "./src/main/resources/static/img/";
+			
+			String fileName = StringUtils.cleanPath(filebanner.getOriginalFilename());
+			try {
+				Path path = Paths.get(UPLOAD_DIR + fileName);
+				Files.copy(filebanner.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				postagem.setBanner(fileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+
+		}
+
+
+
 		repository.save(postagem);         
 		return "redirect:/postagens";
 	}
