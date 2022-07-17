@@ -34,9 +34,14 @@ public class PostagemController {
 	private ComentarioRepository comentarioRepo;
 
 	@RequestMapping(value = "/postagens", method = RequestMethod.GET)
-	public ModelAndView lista(HttpSession session) {
+	public ModelAndView lista(@Param("titulo")String titulo, HttpSession session) {
 		ModelAndView mv = new ModelAndView("index");
-		Iterable<Postagem> postagens = repository.findAll();
+		Iterable<Postagem> postagens;
+		if(titulo != null){
+			postagens = repository.findByTituloContains(titulo);
+		} else {
+			postagens = repository.findAll();
+		}
 		mv.addObject("postagens", postagens);
 		mv.addObject("usuario", session.getAttribute("usuario"));
 		return mv;

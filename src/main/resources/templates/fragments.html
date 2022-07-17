@@ -11,17 +11,34 @@
 			<div class="navbar-fixed">
 				<nav>
 					<div class="nav-wrapper">
-						<a href="#!" class="brand-logo">Vulpes Blog</a>
+						<a href="/postagens" class="brand-logo">Vulpes Blog</a>
 						<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					</div>
 				</nav>
 			</div>
 			<ul class="sidenav" id="mobile-demo">
+				<li>
+					<div class="divider"></div>
+					<form class="container row" action="/postagens" method="GET">
+						<div class="input-field col s8">
+							<input name="titulo" id="search" type="search" placeholder="Pesquisar">
+						</div>
+						<div class="col s2">
+							<button class="btn btn-flat" type="submit">
+								<i class="material-icons">search</i>
+							</button>
+						</div>
+
+					</form>
+					<div class="divider"></div>
+				</li>
+
 				<li th:if="${session.usuario == null}"><a href="/usuarios/login">Login</a></li>
 
 				<li th:if="${session.usuario != null}"><a href="/usuarios/logout">Sair</a></li>
-	
-		</ul>
+
+
+			</ul>
 
 			<br>
 		</header>
